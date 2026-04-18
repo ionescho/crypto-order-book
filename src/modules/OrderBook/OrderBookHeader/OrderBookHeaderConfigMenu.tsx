@@ -18,18 +18,22 @@ export const OrderBookHeaderConfigMenu: FC<Props> = ({ onConfigChange }) => {
         <Checkbox
           defaultChecked={INITIAL_CONFIG.displaySumAvg}
           label='Display Avg & Sum'
-          onChange={checked => onConfigChange('displaySumAvg', checked)}
+          onChange={checked => onConfigChange('displaySumAvg', checked as boolean)}
         />
       </div>
       <div className={`w-100 ${styles.menuItem}`}>
         <Checkbox
           defaultChecked={INITIAL_CONFIG.showBuySellRatio}
           label='Show Buy/Sell Ratio'
-          onChange={checked => onConfigChange('showBuySellRatio', checked)}
+          onChange={checked => onConfigChange('showBuySellRatio', checked as boolean)}
         />
       </div>
       <div className={`w-100 ${styles.menuItem}`}>
-        <Checkbox defaultChecked={INITIAL_CONFIG.rounding} label='Rounding' onChange={checked => onConfigChange('rounding', checked)} />
+        <Checkbox
+          defaultChecked={INITIAL_CONFIG.rounding}
+          label='Rounding'
+          onChange={checked => onConfigChange('rounding', checked as boolean)}
+        />
       </div>
       <div className={`${styles.divider}`} />
       <div className={`w-100 ${styles.menuSubtitle}`}>Book Depth Visualization</div>
@@ -39,7 +43,7 @@ export const OrderBookHeaderConfigMenu: FC<Props> = ({ onConfigChange }) => {
           name='depthVisualization'
           value='amount'
           label='Amount'
-          onChange={value => onConfigChange('depthVisualization', value)}
+          onChange={value => onConfigChange('depthVisualization', value as string)}
         />
       </div>
       <div className={`w-100 ${styles.menuItem}`}>
@@ -48,14 +52,14 @@ export const OrderBookHeaderConfigMenu: FC<Props> = ({ onConfigChange }) => {
           name='depthVisualization'
           value='cumulative'
           label='Cumulative'
-          onChange={value => onConfigChange('depthVisualization', value)}
+          onChange={value => onConfigChange('depthVisualization', value as string)}
         />
       </div>
       <div className={`${styles.divider}`} />
       <div className={`w-100 ${styles.menuItem}`}>
         <label className='d-flex align-items-center justify-space-between'>
           Animations
-          <Toggle defaultChecked={INITIAL_CONFIG.animations} onChange={checked => onConfigChange('animations', checked)} />
+          <Toggle defaultChecked={INITIAL_CONFIG.animations} onChange={checked => onConfigChange('animations', checked as boolean)} />
         </label>
       </div>
     </div>

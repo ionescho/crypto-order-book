@@ -75,7 +75,7 @@ export const OrderBook: FC = () => {
   const { isConnected, fetchedFirstMessage, orderBook } = useWebsocket();
 
   const [config, setConfig] = useState<OrderBookConfig>(INITIAL_CONFIG);
-  const handleConfigChange = useCallback((key, value) => {
+  const handleConfigChange = useCallback((key: string, value: boolean | string) => {
     setConfig(prev => ({
       ...prev,
       [key]: value,
