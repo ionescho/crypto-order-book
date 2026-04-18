@@ -1,4 +1,4 @@
-import { memo, useEffect, useEffectEvent, useMemo, useRef, useState, type FC } from 'react';
+import { memo, useEffect, useRef, useState, type FC } from 'react';
 
 type Props = {
   price: string;

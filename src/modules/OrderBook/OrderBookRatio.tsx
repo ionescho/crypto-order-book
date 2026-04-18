@@ -5,7 +5,7 @@ type Props = {
   asksTotal?: number;
 };
 
-export const OrderBookRatio: FC<Props> = ({ bidsTotal, asksTotal }) => {
+export const OrderBookRatio: FC<Props> = ({ bidsTotal = 0, asksTotal = 0 }) => {
   const percentBids = (bidsTotal / (bidsTotal + asksTotal)) * 100 || 0;
   const percentAsks = 100 - percentBids;
 

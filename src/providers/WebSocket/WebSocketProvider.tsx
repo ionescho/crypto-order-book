@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 import { WebsocketContext, type OrderBookResponse } from './WebSocketContext';
 
+type Props = {
+  children: React.ReactNode;
+};
+
 const WS_BASE_URL = 'wss://stream.binance.com:9443/ws/';
 
-export const WebsocketProvider = ({ children }) => {
+export const WebsocketProvider = ({ children }: Props) => {
   const [isConnected, setIsConnected] = useState(false);
   const [orderBook, setOrderBook] = useState<OrderBookResponse | null>(null);
 
@@ -32,5 +36,7 @@ export const WebsocketProvider = ({ children }) => {
     };
   }, [exchange, depth, speed]);
 
-  return <WebsocketContext.Provider value={{ isConnected, orderBook, setExchange, setDepth }}>{children}</WebsocketContext.Provider>;
+  return (
+    <WebsocketContext.Provider value={{ isConnected, orderBook, setExchange, setDepth, setSpeed }}>{children}</WebsocketContext.Provider>
+  );
 };

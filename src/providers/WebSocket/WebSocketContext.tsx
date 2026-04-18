@@ -10,12 +10,14 @@ export const WebsocketContext = createContext<{
   isConnected: boolean;
   orderBook: OrderBookResponse | null;
   setExchange: Dispatch<SetStateAction<string>>;
-  setDepth: Dispatch<SetStateAction<number>>;
+  setDepth: Dispatch<SetStateAction<5 | 10 | 20>>;
+  setSpeed: Dispatch<SetStateAction<100 | 1000>>;
 }>({
   isConnected: false,
   orderBook: null,
   setExchange: () => {},
   setDepth: () => {},
+  setSpeed: () => {},
 });
 
 export const useWebsocket = () => {
