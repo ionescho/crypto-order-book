@@ -3,14 +3,15 @@ import { OrderRow } from './OrderRow';
 
 type Props = {
   list?: [string, number, string][];
+  maxQuantity?: number;
   variant: 'asks' | 'bids';
 };
 
-export const OrderBookSection: FC<Props> = ({ list = [], variant }) => {
+export const OrderBookSection: FC<Props> = ({ list = [], maxQuantity, variant }) => {
   return (
     <div style={{ display: 'flex', flexDirection: variant === 'asks' ? 'column-reverse' : 'column', flexGrow: 1 }}>
       {list.map(([price, qty, total]) => (
-        <OrderRow key={price} price={price} quantity={qty} total={total} variant={variant} />
+        <OrderRow key={price} price={price} quantity={qty} total={total} maxQuantity={maxQuantity} variant={variant} />
       ))}
     </div>
   );

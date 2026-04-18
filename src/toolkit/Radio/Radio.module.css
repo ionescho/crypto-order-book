@@ -1,0 +1,33 @@
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.radio input {
+  display: none;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--text-secondary);
+  border-radius: 50%;
+  position: relative;
+  transition: border-width 0.2s ease;
+}
+
+.radio input:checked + .dot {
+  border-color: var(--text-primary);
+  border-width: 5px;
+}
+
+/* .radio input:checked + .dot::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background-color: #f0b90b;
+  border-radius: 50%;
+} */

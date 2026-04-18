@@ -1,7 +1,10 @@
 :root {
   --bg: #fff;
+  --bg-card: #9dacc8;
+  --bg-btn: #fcd535;
   --text-primary: #161617;
   --text-secondary: #585d64;
+  --text-disabled: #979fad;
   --text-sell: #f6465d;
   --text-buy: #2ebd85;
 
@@ -24,7 +27,9 @@
   :root {
     --text-primary: #eaecef;
     --text-secondary: #929aa5;
-    --bg: #16171d;
+    --text-disabled: #4f5867;
+    --bg: #181a20;
+    --bg-card: #202630;
   }
 }
 
@@ -36,5 +41,8 @@ body {
   padding: 0;
   height: 100vh;
   width: 100%;
+}
+
+* {
   box-sizing: border-box;
 }

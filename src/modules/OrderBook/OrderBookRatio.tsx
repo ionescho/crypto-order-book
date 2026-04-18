@@ -14,7 +14,7 @@ export const OrderBookRatio: FC<Props> = ({ bidsTotal = 0, asksTotal = 0 }) => {
       <b>B</b>
       <span style={{ color: 'var(--text-buy)' }}>{percentBids.toFixed(2)}%</span>
       <div style={{ flexGrow: 1, height: 4, backgroundColor: 'var(--text-sell)', borderRadius: 2, overflow: 'hidden' }}>
-        <div style={{ width: `${percentBids}%`, height: '100%', backgroundColor: 'var(--text-buy)' }}></div>
+        <div style={{ width: `${percentBids}%`, height: '100%', backgroundColor: 'var(--text-buy)', borderRight: '1px solid black' }}></div>
       </div>
       <span style={{ color: 'var(--text-sell)' }}>{percentAsks.toFixed(2)}%</span>
       <b>S</b>
