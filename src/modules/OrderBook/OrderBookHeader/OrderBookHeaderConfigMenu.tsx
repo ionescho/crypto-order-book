@@ -3,35 +3,59 @@ import { Checkbox } from '../../../toolkit/Checkbox/Checkbox';
 import { Toggle } from '../../../toolkit/Toggle/Toggle';
 import { Radio } from '../../../toolkit/Radio/Radio';
 import styles from '../Orderbook.module.css';
+import type { OrderBookConfig } from '../types';
+import { INITIAL_CONFIG } from '../constants';
 
-type Props = {};
+type Props = {
+  onConfigChange: (key: keyof OrderBookConfig, value: boolean | string) => void;
+};
 
-export const OrderBookHeaderConfigMenu: FC<Props> = () => {
+export const OrderBookHeaderConfigMenu: FC<Props> = ({ onConfigChange }) => {
   return (
     <div className={`${styles.configMenu} d-flex flex-column align-items-start`}>
       <div className={`w-100 ${styles.menuSubtitle}`}>Order Book Display</div>
       <div className={`w-100 ${styles.menuItem}`}>
-        <Checkbox label='Display Avg & Sum' onChange={checked => console.log(checked)} />
+        <Checkbox
+          defaultChecked={INITIAL_CONFIG.displaySumAvg}
+          label='Display Avg & Sum'
+          onChange={checked => onConfigChange('displaySumAvg', checked)}
+        />
       </div>
       <div className={`w-100 ${styles.menuItem}`}>
-        <Checkbox label='Show Buy/Sell Ratio' onChange={checked => console.log(checked)} />
+        <Checkbox
+          defaultChecked={INITIAL_CONFIG.showBuySellRatio}
+          label='Show Buy/Sell Ratio'
+          onChange={checked => onConfigChange('showBuySellRatio', checked)}
+        />
       </div>
       <div className={`w-100 ${styles.menuItem}`}>
-        <Checkbox label='Rounding' onChange={checked => console.log(checked)} />
+        <Checkbox defaultChecked={INITIAL_CONFIG.rounding} label='Rounding' onChange={checked => onConfigChange('rounding', checked)} />
       </div>
       <div className={`${styles.divider}`} />
       <div className={`w-100 ${styles.menuSubtitle}`}>Book Depth Visualization</div>
       <div className={`w-100 ${styles.menuItem}`}>
-        <Radio defaultChecked name='depthVisualization' value='amount' label='Amount' onChange={value => console.log(value)} />
+        <Radio
+          defaultChecked={INITIAL_CONFIG.depthVisualization === 'amount'}
+          name='depthVisualization'
+          value='amount'
+          label='Amount'
+          onChange={value => onConfigChange('depthVisualization', value)}
+        />
       </div>
       <div className={`w-100 ${styles.menuItem}`}>
-        <Radio name='depthVisualization' value='cumulative' label='Cumulative' onChange={value => console.log(value)} />
+        <Radio
+          defaultChecked={INITIAL_CONFIG.depthVisualization === 'cumulative'}
+          name='depthVisualization'
+          value='cumulative'
+          label='Cumulative'
+          onChange={value => onConfigChange('depthVisualization', value)}
+        />
       </div>
       <div className={`${styles.divider}`} />
       <div className={`w-100 ${styles.menuItem}`}>
         <label className='d-flex align-items-center justify-space-between'>
           Animations
-          <Toggle onChange={checked => console.log(checked)} />
+          <Toggle defaultChecked={INITIAL_CONFIG.animations} onChange={checked => onConfigChange('animations', checked)} />
         </label>
       </div>
     </div>

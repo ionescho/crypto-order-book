@@ -44,11 +44,9 @@ export const MenuPopover: React.FC<MenuPopoverProps> = ({ control, children }) =
   return (
     <>
       {control({ anchorRef, triggerOpen })}
-      {isOpen && (
-        <div className={styles.popover} style={style} ref={popoverRef}>
-          {children}
-        </div>
-      )}
+      <div className={`${!isOpen ? 'hide' : ''} ${styles.popover}`} style={style} ref={popoverRef}>
+        {children}
+      </div>
     </>
   );
 };

@@ -5,7 +5,7 @@ type Props = {
   price: string;
   quantity: number;
   total: string;
-  maxQuantity?: number;
+  percentage: number;
 };
 
 // let livingInstances = 0;
@@ -21,7 +21,7 @@ type Props = {
 //     console.log(`=================================================`);
 // }, 1000);
 
-export const OrderRow: FC<Props> = memo(({ price, quantity, total, maxQuantity }) => {
+export const OrderRow: FC<Props> = memo(({ price, quantity, total, percentage }) => {
   // useEffect(() => {
   //     componentInstances++;
   //     livingInstances++;
@@ -55,7 +55,7 @@ export const OrderRow: FC<Props> = memo(({ price, quantity, total, maxQuantity }
       <div
         className={styles.depthBar}
         style={{
-          width: `${(quantity / (maxQuantity || 1)) * 100}%`,
+          width: `${percentage}%`,
         }}
       ></div>
     </div>

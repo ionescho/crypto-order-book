@@ -82,7 +82,7 @@
   box-sizing: border-box;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'BinanceNova';
   font-display: swap;
   src:
@@ -129,7 +129,7 @@
     url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Black.woff2') format('woff2'),
     url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Black.otf') format('opentype');
   font-weight: 900;
-}
+} */
 
 body {
   display: flex;
@@ -139,5 +139,5 @@ body {
   padding: 0;
   height: 100vh;
   width: 100%;
-  font-family: BinanceNova, Arial, sans-serif !important;
+  font-family: var(--sans);
 }
