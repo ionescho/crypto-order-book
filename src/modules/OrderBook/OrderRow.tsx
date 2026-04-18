@@ -1,10 +1,10 @@
-import { memo, useEffect, useEffectEvent, useMemo, useRef, useState, type FC } from "react";
+import { memo, useEffect, useEffectEvent, useMemo, useRef, useState, type FC } from 'react';
 
 type Props = {
   price: string;
   quantity: number;
-  total: string,
-  variant: "asks" | "bids";
+  total: string;
+  variant: 'asks' | 'bids';
 };
 
 // let livingInstances = 0;
@@ -20,16 +20,16 @@ type Props = {
 //     console.log(`=================================================`);
 // }, 1000);
 
-export const OrderRow: FC<Props> = memo(({price, quantity, total, variant}) => {
-    // useEffect(() => {
-    //     componentInstances++;
-    //     livingInstances++;
+export const OrderRow: FC<Props> = memo(({ price, quantity, total, variant }) => {
+  // useEffect(() => {
+  //     componentInstances++;
+  //     livingInstances++;
 
-    //     return () => {
-    //         livingInstances--;
-    //     };
-    // },[])
-    // totalRenderCycles++;
+  //     return () => {
+  //         livingInstances--;
+  //     };
+  // },[])
+  // totalRenderCycles++;
   const [flash, setFlash] = useState(false);
   const isFirstRender = useRef(true);
   useEffect(() => {
@@ -38,8 +38,8 @@ export const OrderRow: FC<Props> = memo(({price, quantity, total, variant}) => {
       return;
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setFlash(true)
-    
+    setFlash(true);
+
     const timeoutId = setTimeout(() => {
       setFlash(false);
     }, 500);
@@ -47,18 +47,20 @@ export const OrderRow: FC<Props> = memo(({price, quantity, total, variant}) => {
   }, [quantity]);
 
   return (
-        <div style={{
-          fontSize: "12px",
-          fontFamily: "monospace",
-          display: "flex",
-          justifyContent: "space-between",
-          lineHeight: '20px',
-          backgroundColor: flash ? `rgba(${variant === "asks" ? "255" : "0"}, ${variant === "bids" ? "255" : "0"}, 0, 0.3)` : 'transparent',
-          transition: "background-color 0.2s ease",
-        }}>
-            <div style={{ color: variant === "asks" ? "var(--text-sell)" : "var(--text-buy)", flex: '1 1 0%', textAlign: 'left' }}>{price}</div>
-            <div style={{ color: 'white', flex: '1 1', textAlign: 'right' }}>{quantity}</div>
-            <div style={{ color: 'white', flex: '1 1', textAlign: 'right' }}>{total}</div>
-        </div>
+    <div
+      style={{
+        fontSize: '12px',
+        fontFamily: 'monospace',
+        display: 'flex',
+        justifyContent: 'space-between',
+        lineHeight: '20px',
+        backgroundColor: flash ? `rgba(${variant === 'asks' ? '255' : '0'}, ${variant === 'bids' ? '255' : '0'}, 0, 0.3)` : 'transparent',
+        transition: 'background-color 0.2s ease',
+      }}
+    >
+      <div style={{ color: variant === 'asks' ? 'var(--text-sell)' : 'var(--text-buy)', flex: '1 1 0%', textAlign: 'left' }}>{price}</div>
+      <div style={{ color: 'white', flex: '1 1', textAlign: 'right' }}>{quantity}</div>
+      <div style={{ color: 'white', flex: '1 1', textAlign: 'right' }}>{total}</div>
+    </div>
   );
 });

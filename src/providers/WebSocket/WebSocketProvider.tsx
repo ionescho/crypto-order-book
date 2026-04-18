@@ -1,40 +1,36 @@
-import { useEffect, useState } from "react";
-import { WebsocketContext, type OrderBookResponse } from "./WebSocketContext";
+import { useEffect, useState } from 'react';
+import { WebsocketContext, type OrderBookResponse } from './WebSocketContext';
 
-const WS_BASE_URL = "wss://stream.binance.com:9443/ws/";
+const WS_BASE_URL = 'wss://stream.binance.com:9443/ws/';
 
 export const WebsocketProvider = ({ children }) => {
-    const [isConnected, setIsConnected] = useState(false);
-    const [orderBook, setOrderBook] = useState<OrderBookResponse | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const [orderBook, setOrderBook] = useState<OrderBookResponse | null>(null);
 
-    const [exchange, setExchange] = useState<string>("btcusdt");
-    const [depth, setDepth] = useState<5 | 10 | 20>(20);
-    const [speed, setSpeed] = useState<100 | 1000>(1000);
+  const [exchange, setExchange] = useState<string>('btcusdt');
+  const [depth, setDepth] = useState<5 | 10 | 20>(20);
+  const [speed, setSpeed] = useState<100 | 1000>(1000);
 
-    useEffect(() => {
-        const socket = new WebSocket(`${WS_BASE_URL}${exchange}@depth${depth}@${speed}ms`);
+  useEffect(() => {
+    const socket = new WebSocket(`${WS_BASE_URL}${exchange}@depth${depth}@${speed}ms`);
 
-        socket.onopen = () => {
-            setIsConnected(true);
-        };
+    socket.onopen = () => {
+      setIsConnected(true);
+    };
 
-        socket.onmessage = (event) => {
-            const payload = JSON.parse(event.data);
-            setOrderBook(payload);
-        };
+    socket.onmessage = event => {
+      const payload = JSON.parse(event.data);
+      setOrderBook(payload);
+    };
 
-        socket.onclose = () => {
-            setIsConnected(false);
-        };
+    socket.onclose = () => {
+      setIsConnected(false);
+    };
 
-        return () => {
-            socket.close();
-        };
-    }, [exchange, depth, speed]);
+    return () => {
+      socket.close();
+    };
+  }, [exchange, depth, speed]);
 
-    return (
-        <WebsocketContext.Provider value={{ isConnected, orderBook, setExchange, setDepth }}>
-            {children}
-        </WebsocketContext.Provider>
-    );
+  return <WebsocketContext.Provider value={{ isConnected, orderBook, setExchange, setDepth }}>{children}</WebsocketContext.Provider>;
 };
