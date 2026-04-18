@@ -1,12 +1,15 @@
 :root {
   --bg: #fff;
+  --bg-basic: #b3c0e8;
   --bg-card: #9dacc8;
   --bg-btn: #fcd535;
   --text-primary: #161617;
   --text-secondary: #585d64;
+  --text-tertiary: #707a8a;
   --text-disabled: #979fad;
   --text-sell: #f6465d;
   --text-buy: #2ebd85;
+  --color-input: #8aa8d4;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -25,12 +28,107 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --bg: #0c0e11;
+    --bg-basic: #181a20;
+    --bg-card: #202630;
     --text-primary: #eaecef;
     --text-secondary: #929aa5;
     --text-disabled: #4f5867;
-    --bg: #181a20;
-    --bg-card: #202630;
+    --color-input: #29313d;
   }
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-items-start {
+  align-items: flex-start;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.align-items-stretch {
+  align-items: stretch;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-column-reverse {
+  flex-direction: column-reverse;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.hide {
+  display: none;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'BinanceNova';
+  font-display: swap;
+  src:
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Light.woff2') format('woff2'),
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Light.otf') format('opentype');
+  font-weight: 200 300;
+}
+@font-face {
+  font-family: 'BinanceNova';
+  font-display: swap;
+  src:
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Regular.woff2') format('woff2'),
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Regular.otf') format('opentype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'BinanceNova';
+  font-display: swap;
+  src:
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Medium.woff2') format('woff2'),
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Medium.otf') format('opentype');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'BinanceNova';
+  font-display: swap;
+  src:
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-SemiBold.woff2') format('woff2'),
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-SemiBold.otf') format('opentype');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'BinanceNova';
+  font-display: swap;
+  src:
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Bold.woff2') format('woff2'),
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Bold.otf') format('opentype');
+  font-weight: 700 800;
+}
+@font-face {
+  font-family: 'BinanceNova';
+  font-display: swap;
+  src:
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Black.woff2') format('woff2'),
+    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Black.otf') format('opentype');
+  font-weight: 900;
 }
 
 body {
@@ -41,8 +139,5 @@ body {
   padding: 0;
   height: 100vh;
   width: 100%;
-}
-
-* {
-  box-sizing: border-box;
+  font-family: BinanceNova, Arial, sans-serif !important;
 }

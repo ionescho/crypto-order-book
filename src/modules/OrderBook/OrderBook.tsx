@@ -1,8 +1,9 @@
 import type { FC } from 'react';
 import { useWebsocket, type OrderBookResponse } from '../../providers/WebSocket/WebSocketContext';
-import { OrderBookSection } from './OrderBookSection';
-import { OrderBookRatio } from './OrderBookRatio';
-import { OrderBookHeaderAndControls } from './OrderBookHeaderAndControls';
+import { OrderBookHeaderAndControls } from './OrderBookHeader/OrderBookHeaderAndControls';
+import { OrderBookSection } from './OrderBookBody/OrderBookSection';
+import { OrderBookRatio } from './OrderBookBody/OrderBookRatio';
+import styles from './Orderbook.module.css';
 
 const parseSection: (section: [string, string][]) => [string, number, string][] = section =>
   section.map(([price, qty]) => [Number(price).toFixed(2), Number(qty), (Number(price) * Number(qty)).toFixed(6)]);
@@ -24,24 +25,23 @@ const parseOrderBook = (orderBook: OrderBookResponse) => {
 };
 
 export const OrderBook: FC = () => {
-  const { isConnected, orderBook } = useWebsocket();
+  const { isConnected, fetchedFirstMessage, orderBook } = useWebsocket();
 
   const parsedOrderBook = orderBook ? parseOrderBook(orderBook) : null;
 
   return (
     <>
-      <div style={{ display: isConnected ? 'block' : 'none', backgroundColor: 'var(--bg-card)', padding: 20, borderRadius: 8 }}>
-        <div
-          style={{ display: parsedOrderBook ? 'flex' : 'none', flexDirection: 'column', alignItems: 'stretch', gap: '20px', width: 320 }}
-        >
-          <OrderBookHeaderAndControls />
+      <div className={`${styles.orderBook} ${isConnected && fetchedFirstMessage && parsedOrderBook ? '' : 'hide'}`}>
+        <OrderBookHeaderAndControls />
+        <div className={`${styles.orderBookBody} d-flex flex-column align-items-stretch`}>
           <OrderBookSection list={parsedOrderBook?.asks} maxQuantity={parsedOrderBook?.maxQuantity} variant='asks' />
           <OrderBookSection list={parsedOrderBook?.bids} maxQuantity={parsedOrderBook?.maxQuantity} variant='bids' />
           <OrderBookRatio asksTotal={parsedOrderBook?.asksTotal} bidsTotal={parsedOrderBook?.bidsTotal} />
         </div>
-        <p style={{ display: parsedOrderBook ? 'none' : 'block' }}>No data available</p>
       </div>
-      <p style={{ display: !isConnected ? 'block' : 'none' }}>Connecting...</p>
+      <p className={isConnected && fetchedFirstMessage && !parsedOrderBook ? '' : 'hide'}>No data available</p>
+      <p className={!isConnected ? '' : 'hide'}>Connecting...</p>
+      <p className={isConnected && !fetchedFirstMessage ? '' : 'hide'}>Waiting for data...</p>
     </>
   );
 };

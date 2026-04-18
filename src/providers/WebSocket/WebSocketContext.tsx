@@ -8,12 +8,14 @@ export type OrderBookResponse = {
 
 export const WebsocketContext = createContext<{
   isConnected: boolean;
+  fetchedFirstMessage: boolean;
   orderBook: OrderBookResponse | null;
   setExchange: Dispatch<SetStateAction<string>>;
   setDepth: Dispatch<SetStateAction<5 | 10 | 20>>;
   setSpeed: Dispatch<SetStateAction<100 | 1000>>;
 }>({
   isConnected: false,
+  fetchedFirstMessage: false,
   orderBook: null,
   setExchange: () => {},
   setDepth: () => {},

@@ -1,34 +1,54 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, type RefObject } from 'react';
+import styles from './MenuPopover.module.css';
 
 type MenuPopoverProps = {
-  isOpen: boolean;
-  anchorRef: React.RefObject<HTMLElement>;
-  onClose: () => void;
+  control: (renderProps: { anchorRef: RefObject<HTMLElement | null>; triggerOpen: (e: React.SyntheticEvent) => void }) => React.ReactNode;
   children: React.ReactNode;
 };
 
-export const MenuPopover: React.FC<MenuPopoverProps> = ({ isOpen, anchorRef, onClose, children }) => {
-  const popoverRef = useRef<HTMLDivElement>(null);
+export const MenuPopover: React.FC<MenuPopoverProps> = ({ control, children }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const anchorRef = useRef<HTMLElement | null>(null);
+  const popoverRef = useRef<HTMLDivElement | null>(null);
+  const [style, setStyle] = useState<React.CSSProperties>({});
+
+  const triggerOpen = (e: React.SyntheticEvent) => {
+    if (isOpen) return;
+
+    anchorRef.current = e.currentTarget as HTMLElement;
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    setIsOpen(true);
+    setStyle({
+      position: 'absolute',
+      top: rect.bottom + window.scrollY + 4,
+      left: rect.left + rect.width + window.scrollX,
+      transform: 'translateX(-100%)',
+    });
+  };
 
   // Close on outside click
   useEffect(() => {
     if (!isOpen) return;
 
-    const handleClick = (e: MouseEvent) => {
+    const handleClickOutside = (e: MouseEvent) => {
       if (popoverRef.current && !popoverRef.current.contains(e.target as Node) && !anchorRef.current?.contains(e.target as Node)) {
-        onClose();
+        setIsOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [isOpen, onClose, anchorRef]);
-
-  if (!isOpen) return null;
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen, anchorRef]);
 
   return (
-    <div className='popover' ref={popoverRef}>
-      {children}
-    </div>
+    <>
+      {control({ anchorRef, triggerOpen })}
+      {isOpen && (
+        <div className={styles.popover} style={style} ref={popoverRef}>
+          {children}
+        </div>
+      )}
+    </>
   );
 };

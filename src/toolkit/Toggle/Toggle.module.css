@@ -31,7 +31,7 @@
 }
 
 .toggle input:checked + .slider {
-  background-color: var(--bg-btn); /* Binance yellow */
+  background-color: var(--bg-btn);
 }
 
 .toggle input:checked + .slider::before {
