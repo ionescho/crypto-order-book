@@ -1,6 +1,6 @@
 import './App.css'
 import { WebsocketProvider } from '../providers/WebSocket/WebSocketProvider'
-import { OrderBook } from '../components/OrderBook'
+import { OrderBook } from '../modules/OrderBook/OrderBook'
 
 function App() {
 

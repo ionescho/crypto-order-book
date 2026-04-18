@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import { WebsocketContext } from "./WebSocketContext";
+import { WebsocketContext, type OrderBookResponse } from "./WebSocketContext";
 
 const WS_BASE_URL = "wss://stream.binance.com:9443/ws/";
 
 export const WebsocketProvider = ({ children }) => {
     const [isConnected, setIsConnected] = useState(false);
-    const [orderBook, setOrderBook] = useState<Record<string, number | string | string[][]>>({});
+    const [orderBook, setOrderBook] = useState<OrderBookResponse | null>(null);
 
     const [exchange, setExchange] = useState<string>("btcusdt");
+    const [depth, setDepth] = useState<5 | 10 | 20>(20);
+    const [speed, setSpeed] = useState<100 | 1000>(1000);
 
     useEffect(() => {
-        const socket = new WebSocket(`${WS_BASE_URL}${exchange}@depth20`);
+        const socket = new WebSocket(`${WS_BASE_URL}${exchange}@depth${depth}@${speed}ms`);
 
         socket.onopen = () => {
             setIsConnected(true);
@@ -18,7 +20,7 @@ export const WebsocketProvider = ({ children }) => {
 
         socket.onmessage = (event) => {
             const payload = JSON.parse(event.data);
-            setOrderBook(payload.data);
+            setOrderBook(payload);
         };
 
         socket.onclose = () => {
@@ -28,10 +30,10 @@ export const WebsocketProvider = ({ children }) => {
         return () => {
             socket.close();
         };
-    }, [exchange]);
+    }, [exchange, depth, speed]);
 
     return (
-        <WebsocketContext.Provider value={[isConnected, orderBook, setExchange]}>
+        <WebsocketContext.Provider value={{ isConnected, orderBook, setExchange, setDepth }}>
             {children}
         </WebsocketContext.Provider>
     );
