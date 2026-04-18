@@ -93,7 +93,9 @@ export const OrderBook: FC = () => {
         <div className={`${styles.orderBookBody} d-flex flex-column align-items-stretch`}>
           <OrderBookSection list={parsedOrderBook?.asks} variant='asks' />
           <OrderBookSection list={parsedOrderBook?.bids} variant='bids' />
-          <OrderBookRatio asksTotal={parsedOrderBook?.asksTotal} bidsTotal={parsedOrderBook?.bidsTotal} />
+          <div style={{ visibility: config.showBuySellRatio ? 'visible' : 'hidden' }}>
+            <OrderBookRatio asksTotal={parsedOrderBook?.asksTotal} bidsTotal={parsedOrderBook?.bidsTotal} />
+          </div>
         </div>
       </div>
       <p className={isConnected && fetchedFirstMessage && !parsedOrderBook ? '' : 'hide'}>No data available</p>
