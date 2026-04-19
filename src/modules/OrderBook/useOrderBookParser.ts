@@ -32,18 +32,24 @@ const parseSection: (
   section.map(({ price, quantity }, i) => {
     const total = price * quantity;
 
-    let formattedTotal: string;
-    if (config.rounding && total > 1000000) {
-      formattedTotal = `${((price * quantity) / 1000000).toFixed(2)}M`;
-    } else if (config.rounding && total > 1000) {
-      formattedTotal = `${((price * quantity) / 1000).toFixed(2)}K`;
-    } else {
-      formattedTotal = (price * quantity).toFixed(6);
+    let formattedTotal = (price * quantity).toFixed(6);
+    let formattedQuantity = quantity.toFixed(5);
+    if (config.rounding) {
+      if (total > 1000000) {
+        formattedTotal = `${((price * quantity) / 1000000).toFixed(2)}M`;
+      } else if (total > 1000) {
+        formattedTotal = `${((price * quantity) / 1000).toFixed(2)}K`;
+      }
+      if (quantity > 1000000) {
+        formattedQuantity = `${(quantity / 1000000).toFixed(2)}M`;
+      } else if (quantity > 1000) {
+        formattedQuantity = `${(quantity / 1000).toFixed(2)}K`;
+      }
     }
 
     return {
       price: price.toFixed(2),
-      quantity: quantity.toFixed(5),
+      quantity: formattedQuantity,
       total: formattedTotal,
       percentage: percentages[i],
     };
@@ -89,8 +95,6 @@ const parseOrderBook = (orderBook: OrderBookResponse, config: Partial<OrderBookC
     bids,
     asksTotal,
     bidsTotal,
-    asksBarPercentages,
-    bidsBarPercentages,
   };
 };
 

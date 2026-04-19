@@ -1,0 +1,133 @@
+.section {
+  .sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--text-secondary);
+  }
+  .sectionBody {
+    --row-height: 20px;
+    height: calc(var(--row-height) * 20);
+    flex-direction: column;
+
+    .row {
+      height: var(--row-height);
+      font-size: 12px;
+      line-height: 20px;
+      position: relative;
+      color: var(--text-primary);
+
+      transition: background-color 0.2s ease;
+      background-color: transparent;
+
+      &:hover {
+        font-size: 12.5px;
+        .hoverHighlight {
+          border-bottom: 1px dashed var(--color-line);
+          background-color: color-mix(in oklab, var(--color-input) 50%, transparent);
+        }
+      }
+      &:has(~ .row:hover) {
+        .hoverHighlight {
+          background-color: color-mix(in oklab, var(--color-input) 50%, transparent);
+        }
+      }
+
+      .depthBar,
+      .hoverHighlight {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        pointer-events: none;
+      }
+      .hoverHighlight {
+        left: 0;
+        z-index: 0;
+      }
+      .depthBar {
+        z-index: 1;
+      }
+      .contentContainer {
+        position: relative;
+        z-index: 2;
+      }
+    }
+  }
+  .price {
+    flex: 1 1 0%;
+    text-align: left;
+  }
+  .amount,
+  .total {
+    flex: 1 1;
+    text-align: right;
+  }
+
+  &.asks {
+    .sectionBody {
+      flex-direction: column-reverse;
+      .row {
+        &:hover {
+          .hoverHighlight {
+            border-top: 1px dashed var(--color-line);
+            border-bottom: none;
+          }
+        }
+        &.flash {
+          background-color: color-mix(in oklab, var(--text-sell) 50%, transparent);
+        }
+        .price {
+          color: var(--text-sell);
+        }
+        .depthBar {
+          background-color: color-mix(in oklab, var(--text-sell) 20%, transparent);
+        }
+      }
+    }
+  }
+  &.bids {
+    .sectionHeader {
+      display: none;
+    }
+    .sectionBody {
+      .row {
+        &.flash {
+          background-color: color-mix(in oklab, var(--text-buy) 50%, transparent);
+        }
+        .price {
+          color: var(--text-buy);
+        }
+        .depthBar {
+          background-color: color-mix(in oklab, var(--text-buy) 20%, transparent);
+        }
+      }
+    }
+  }
+}
+
+.orderBookRatios {
+  gap: 4px;
+  font-size: 12px;
+
+  .buyLabel {
+    color: var(--text-buy);
+  }
+  .sellLabel {
+    color: var(--text-sell);
+  }
+  .ratioBar {
+    flex-grow: 1;
+    height: 4px;
+    background-color: var(--text-sell);
+    border-radius: 2px;
+    overflow: hidden;
+
+    .buysSegment {
+      height: 100%;
+      background-color: var(--text-buy);
+      border-right: 1px solid black;
+    }
+  }
+}

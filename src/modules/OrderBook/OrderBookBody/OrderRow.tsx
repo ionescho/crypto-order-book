@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, useState, type FC } from 'react';
-import styles from '../OrderBook.module.css';
+import styles from './OrderbookBody.module.css';
 
 type Props = {
   animations: boolean;

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, type RefObject } from 'react';
 import styles from './MenuPopover.module.css';
+import { createPortal } from 'react-dom';
 
 type MenuPopoverProps = {
   control: (renderProps: { anchorRef: RefObject<HTMLElement | null>; triggerOpen: (e: React.SyntheticEvent) => void }) => React.ReactNode;
@@ -44,9 +45,12 @@ export const MenuPopover: React.FC<MenuPopoverProps> = ({ control, children }) =
   return (
     <>
       {control({ anchorRef, triggerOpen })}
-      <div className={`${!isOpen ? 'hide' : ''} ${styles.popover}`} style={style} ref={popoverRef}>
-        {children}
-      </div>
+      {createPortal(
+        <div className={`${!isOpen ? 'hide' : ''} ${styles.popover}`} style={style} ref={popoverRef}>
+          {children}
+        </div>,
+        document.body,
+      )}
     </>
   );
 };

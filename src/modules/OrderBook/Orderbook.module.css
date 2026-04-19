@@ -2,6 +2,8 @@
   background-color: var(--bg-basic);
   padding: 20px;
   border-radius: 8px;
+  position: relative;
+  overflow: hidden;
 
   .orderBookHeader {
     h6 {
@@ -17,139 +19,32 @@
   .orderBookBody {
     gap: 20px;
     width: 320px;
-
-    .section {
-      .sectionHeader {
-        display: flex;
-        justify-content: space-between;
-        font-size: 12px;
-        line-height: 20px;
-        color: var(--text-secondary);
-      }
-      .sectionBody {
-        --row-height: 20px;
-        height: calc(var(--row-height) * 20);
-        flex-direction: column;
-
-        .row {
-          height: var(--row-height);
-          font-size: 12px;
-          line-height: 20px;
-          position: relative;
-          color: var(--text-primary);
-
-          transition: background-color 0.2s ease;
-          background-color: transparent;
-
-          &:hover {
-            font-weight: bold;
-            .hoverHighlight {
-              border-bottom: 1px dashed var(--color-line);
-              background-color: color-mix(in oklab, var(--color-input) 50%, transparent);
-            }
-          }
-          &:has(~ .row:hover) {
-            .hoverHighlight {
-              background-color: color-mix(in oklab, var(--color-input) 50%, transparent);
-            }
-          }
-
-          .depthBar,
-          .hoverHighlight {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            pointer-events: none;
-          }
-          .hoverHighlight {
-            left: 0;
-            z-index: 0;
-          }
-          .depthBar {
-            z-index: 1;
-          }
-          .contentContainer {
-            position: relative;
-            z-index: 2;
-          }
-        }
-      }
-      .price {
-        flex: 1 1 0%;
-        text-align: left;
-      }
-      .amount,
-      .total {
-        flex: 1 1;
-        text-align: right;
-      }
-
-      &.asks {
-        .sectionBody {
-          flex-direction: column-reverse;
-          .row {
-            &:hover {
-              .hoverHighlight {
-                border-top: 1px dashed var(--color-line);
-                border-bottom: none;
-              }
-            }
-            &.flash {
-              background-color: color-mix(in oklab, var(--text-sell) 50%, transparent);
-            }
-            .price {
-              color: var(--text-sell);
-            }
-            .depthBar {
-              background-color: color-mix(in oklab, var(--text-sell) 20%, transparent);
-            }
-          }
-        }
-      }
-      &.bids {
-        .sectionHeader {
-          display: none;
-        }
-        .sectionBody {
-          .row {
-            &.flash {
-              background-color: color-mix(in oklab, var(--text-buy) 50%, transparent);
-            }
-            .price {
-              color: var(--text-buy);
-            }
-            .depthBar {
-              background-color: color-mix(in oklab, var(--text-buy) 20%, transparent);
-            }
-          }
-        }
-      }
-    }
   }
 
-  .orderBookRatios {
-    gap: 4px;
-    font-size: 12px;
+  .waitingOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 100%;
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    transition: top ease-in-out 0.2s;
 
-    .buyLabel {
-      color: var(--text-buy);
+    &.show {
+      top: 52px;
     }
-    .sellLabel {
-      color: var(--text-sell);
-    }
-    .ratioBar {
-      flex-grow: 1;
-      height: 4px;
-      background-color: var(--text-sell);
-      border-radius: 2px;
-      overflow: hidden;
 
-      .buysSegment {
-        height: 100%;
-        background-color: var(--text-buy);
-        border-right: 1px solid black;
-      }
+    svg {
+      stroke: var(--bg-btn);
+      animation: spin 4s linear infinite;
     }
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }

@@ -1,6 +1,6 @@
 export type OrderBookLayout = 'both' | 'asks' | 'bids';
 
-export type Exchange = 'btcusdt' | 'ethusdt' | 'bnbusdt';
+export type Exchange = 'btcusdt' | 'ethusdt' | 'bnbusdt' | 'dogeusdt';
 
 export type OrderBookConfig = {
   displaySumAvg: boolean;
