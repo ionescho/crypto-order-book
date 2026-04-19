@@ -12,23 +12,23 @@ type Props = {
 
 export const OrderBookHeaderConfigMenu: FC<Props> = ({ onConfigChange }) => {
   return (
-    <div className={`${styles.configMenu} d-flex flex-column align-items-start`}>
-      <div className={`w-100 ${styles.menuSubtitle}`}>Order Book Display</div>
-      <div className={`w-100 ${styles.menuItem}`}>
+    <div className={`${styles.configMenu} d-flex flex-column align-items-stretch`}>
+      <div className={`${styles.menuSubtitle}`}>Order Book Display</div>
+      <div className={`${styles.menuItem}`}>
         <Checkbox
           defaultChecked={INITIAL_CONFIG.displaySumAvg}
           label='Display Avg & Sum'
           onChange={checked => onConfigChange('displaySumAvg', checked as boolean)}
         />
       </div>
-      <div className={`w-100 ${styles.menuItem}`}>
+      <div className={`${styles.menuItem}`}>
         <Checkbox
           defaultChecked={INITIAL_CONFIG.showBuySellRatio}
           label='Show Buy/Sell Ratio'
           onChange={checked => onConfigChange('showBuySellRatio', checked as boolean)}
         />
       </div>
-      <div className={`w-100 ${styles.menuItem}`}>
+      <div className={`${styles.menuItem}`}>
         <Checkbox
           defaultChecked={INITIAL_CONFIG.rounding}
           label='Rounding'
@@ -36,8 +36,8 @@ export const OrderBookHeaderConfigMenu: FC<Props> = ({ onConfigChange }) => {
         />
       </div>
       <div className={`${styles.divider}`} />
-      <div className={`w-100 ${styles.menuSubtitle}`}>Book Depth Visualization</div>
-      <div className={`w-100 ${styles.menuItem}`}>
+      <div className={`${styles.menuSubtitle}`}>Book Depth Visualization</div>
+      <div className={`${styles.menuItem}`}>
         <Radio
           defaultChecked={INITIAL_CONFIG.depthVisualization === 'amount'}
           name='depthVisualization'
@@ -46,7 +46,7 @@ export const OrderBookHeaderConfigMenu: FC<Props> = ({ onConfigChange }) => {
           onChange={value => onConfigChange('depthVisualization', value as string)}
         />
       </div>
-      <div className={`w-100 ${styles.menuItem}`}>
+      <div className={`${styles.menuItem}`}>
         <Radio
           defaultChecked={INITIAL_CONFIG.depthVisualization === 'cumulative'}
           name='depthVisualization'
@@ -56,7 +56,7 @@ export const OrderBookHeaderConfigMenu: FC<Props> = ({ onConfigChange }) => {
         />
       </div>
       <div className={`${styles.divider}`} />
-      <div className={`w-100 ${styles.menuItem}`}>
+      <div className={`${styles.menuItem}`}>
         <label className='d-flex align-items-center justify-space-between'>
           Animations
           <Toggle defaultChecked={INITIAL_CONFIG.animations} onChange={checked => onConfigChange('animations', checked as boolean)} />

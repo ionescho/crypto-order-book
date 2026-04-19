@@ -20,13 +20,11 @@ export const WebsocketProvider = ({ children }: Props) => {
     const socket = new WebSocket(`${WS_BASE_URL}${exchange}@depth${depth}@${speed}ms`);
 
     socket.onopen = () => {
-      console.log('has Opened');
       setIsConnected(true);
       setFetchedFirstMessage(false);
     };
 
     socket.onmessage = event => {
-      console.log('got message');
       const payload = JSON.parse(event.data);
 
       setFetchedFirstMessage(true);
@@ -34,7 +32,6 @@ export const WebsocketProvider = ({ children }: Props) => {
     };
 
     socket.onclose = () => {
-      console.log('closing');
       setIsConnected(false);
       setFetchedFirstMessage(false);
     };

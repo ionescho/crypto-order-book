@@ -7,10 +7,28 @@
     h6 {
       margin: 0;
     }
+    .headerDivider {
+      height: 1px;
+      background-color: var(--text-disabled);
+      margin: 6px 0;
+    }
     .configMenuButton {
       cursor: pointer;
+      color: var(--text-tertiary);
       &:hover {
-        color: var(--text-tertiary);
+        color: var(--text-primary);
+      }
+    }
+    .decimalsMenuButton {
+      font-size: 12px;
+      gap: 4px;
+      cursor: pointer;
+      &:hover svg {
+        fill: var(--text-primary);
+      }
+      svg {
+        transform: rotate(180deg);
+        fill: var(--text-tertiary);
       }
     }
     .configMenu {
@@ -24,6 +42,7 @@
       .menuItem {
         font-size: 14px;
         padding: 8px 10px;
+        cursor: pointer;
 
         &:hover {
           background-color: var(--color-input);

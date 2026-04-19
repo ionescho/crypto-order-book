@@ -10,7 +10,7 @@ import type { OrderBookConfig } from './types';
 const parseSection: (
   section: [string, string][],
   percentages: number[],
-  config: OrderBookConfig,
+  config: Partial<OrderBookConfig>,
 ) => { price: string; quantity: number; total: string; percentage: number }[] = (section, percentages, config) =>
   section.map(([price, qty], i) => {
     const total = Number(price) * Number(qty);
@@ -29,7 +29,7 @@ const parseSection: (
     };
   });
 
-const parseOrderBook = (orderBook: OrderBookResponse, config: OrderBookConfig) => {
+const parseOrderBook = (orderBook: OrderBookResponse, config: Partial<OrderBookConfig>) => {
   const asksQuantities = orderBook.asks.map(([_, qty]) => Number(qty));
   const bidsQuantities = orderBook.bids.map(([_, qty]) => Number(qty));
 
@@ -75,25 +75,29 @@ export const OrderBook: FC = () => {
   const { isConnected, fetchedFirstMessage, orderBook } = useWebsocket();
 
   const [config, setConfig] = useState<OrderBookConfig>(INITIAL_CONFIG);
-  const handleConfigChange = useCallback((key: string, value: boolean | string) => {
+  const handleConfigChange = useCallback((key: string, value: boolean | number | string) => {
     setConfig(prev => ({
       ...prev,
       [key]: value,
     }));
   }, []);
 
+  const { animations, showBuySellRatio, layout, ...dataConfig } = config;
   const parsedOrderBook = useMemo(() => {
-    return orderBook ? parseOrderBook(orderBook, config) : null;
-  }, [orderBook, config]);
+    return orderBook ? parseOrderBook(orderBook, dataConfig) : null;
+  }, [orderBook, dataConfig]);
+
+  const showAsks = layout === 'both' || layout === 'asks';
+  const showBids = layout === 'both' || layout === 'bids';
 
   return (
     <>
       <div className={`${styles.orderBook} ${isConnected && fetchedFirstMessage && parsedOrderBook ? '' : 'hide'}`}>
         <OrderBookHeaderAndControls onConfigChange={handleConfigChange} />
         <div className={`${styles.orderBookBody} d-flex flex-column align-items-stretch`}>
-          <OrderBookSection list={parsedOrderBook?.asks} variant='asks' />
-          <OrderBookSection list={parsedOrderBook?.bids} variant='bids' />
-          <div style={{ visibility: config.showBuySellRatio ? 'visible' : 'hidden' }}>
+          {showAsks && <OrderBookSection list={parsedOrderBook?.asks} animations={animations} variant='asks' />}
+          {showBids && <OrderBookSection list={parsedOrderBook?.bids} animations={animations} variant='bids' />}
+          <div style={{ visibility: showBuySellRatio ? 'visible' : 'hidden' }}>
             <OrderBookRatio asksTotal={parsedOrderBook?.asksTotal} bidsTotal={parsedOrderBook?.bidsTotal} />
           </div>
         </div>

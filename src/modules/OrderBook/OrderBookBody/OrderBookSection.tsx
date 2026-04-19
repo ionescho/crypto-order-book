@@ -3,11 +3,12 @@ import { OrderRow } from './OrderRow';
 import styles from '../Orderbook.module.css';
 
 type Props = {
+  animations: boolean;
   list?: { price: string; quantity: number; total: string; percentage: number }[];
   variant: 'asks' | 'bids';
 };
 
-export const OrderBookSection: FC<Props> = ({ list = [], variant }) => {
+export const OrderBookSection: FC<Props> = ({ animations, list = [], variant }) => {
   return (
     <div className={`${styles.section} ${styles[variant]}`}>
       <div className={styles.sectionHeader}>
@@ -17,7 +18,7 @@ export const OrderBookSection: FC<Props> = ({ list = [], variant }) => {
       </div>
       <div className={`${styles.sectionBody} d-flex`}>
         {list.map(({ price, quantity, total, percentage }) => (
-          <OrderRow key={price} price={price} quantity={quantity} total={total} percentage={percentage} />
+          <OrderRow animations={animations} key={price} price={price} quantity={quantity} total={total} percentage={percentage} />
         ))}
       </div>
     </div>
