@@ -44,15 +44,18 @@ export const OrderRow: FC<Props> = memo(({ animations, price, quantity, total, p
 
   return (
     <div className={`${styles.row} ${flash && animations ? styles.flash : ''}`}>
-      <div className={styles.price}>{price}</div>
-      <div className={styles.amount}>{quantity}</div>
-      <div className={styles.total}>{total}</div>
+      <div className={styles.hoverHighlightContainer} />
       <div
-        className={styles.depthBar}
+        className={styles.depthBarContainer}
         style={{
           width: `${percentage}%`,
         }}
-      ></div>
+      />
+      <div className={`w-100 d-flex justify-space-between ${styles.contentContainer}`}>
+        <div className={styles.price}>{price}</div>
+        <div className={styles.amount}>{quantity}</div>
+        <div className={styles.total}>{total}</div>
+      </div>
     </div>
   );
 });
