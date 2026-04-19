@@ -15,7 +15,7 @@ export const INITIAL_CONFIG: OrderBookConfig = {
   showBuySellRatio: true,
   rounding: true,
   depthVisualization: 'amount',
-  animations: false,
+  animations: true,
   decimals: 0.01,
   layout: 'both',
   exchange: 'btcusdt',

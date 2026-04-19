@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, useState, type FC } from 'react';
-import styles from '../Orderbook.module.css';
+import styles from '../OrderBook.module.css';
 
 type Props = {
   animations: boolean;
@@ -21,14 +21,12 @@ type Props = {
 // }, 1000);
 
 export const OrderRow: FC<Props> = memo(({ animations, price, quantity, total, percentage }) => {
-  // useEffect(() => {
-  //     componentInstances++;
-  // },[])
   // totalRenderCycles++;
   const [flash, setFlash] = useState(false);
   const isFirstRender = useRef(true);
   useEffect(() => {
     if (isFirstRender.current) {
+      //     componentInstances++;
       isFirstRender.current = false;
       return;
     }
@@ -43,7 +41,7 @@ export const OrderRow: FC<Props> = memo(({ animations, price, quantity, total, p
   }, [quantity]);
 
   return (
-    <div className={`${styles.row} ${flash && animations ? styles.flash : ''}`}>
+    <div className={`${styles.row} ${animations && flash ? styles.flash : ''}`}>
       <div className={styles.hoverHighlight} />
       <div
         className={styles.depthBar}

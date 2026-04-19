@@ -3,7 +3,7 @@ import { useWebsocket } from '../../websocket/WebSocketContext';
 import { OrderBookHeaderAndControls } from './OrderBookHeader/OrderBookHeaderAndControls';
 import { OrderBookSection } from './OrderBookBody/OrderBookSection';
 import { OrderBookRatio } from './OrderBookBody/OrderBookRatio';
-import styles from './Orderbook.module.css';
+import styles from './OrderBook.module.css';
 import { INITIAL_CONFIG } from './constants';
 import { ROUTES } from '../../websocket/constants';
 import type { OrderBookConfig, OrderBookResponse } from './types';

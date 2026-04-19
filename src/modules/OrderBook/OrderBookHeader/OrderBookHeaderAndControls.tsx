@@ -1,5 +1,5 @@
 import { memo, type FC } from 'react';
-import styles from '../Orderbook.module.css';
+import styles from '../OrderBook.module.css';
 import type { OrderBookConfig } from '../types';
 import { DecimalsMenuPopover } from './ConfigMenus/DecimalsMenuPopover';
 import { LayoutSelector } from './LayoutSelector';

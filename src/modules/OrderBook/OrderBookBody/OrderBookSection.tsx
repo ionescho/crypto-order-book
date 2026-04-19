@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { OrderRow } from './OrderRow';
-import styles from '../Orderbook.module.css';
+import styles from '../OrderBook.module.css';
 import type { Exchange } from '../types';
 import { EXCHANGE_LABELS } from '../constants';
 

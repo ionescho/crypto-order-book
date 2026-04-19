@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import styles from '../Orderbook.module.css';
+import styles from '../OrderBook.module.css';
 
 type Props = {
   bidsTotal?: number;

@@ -25,14 +25,14 @@ export const LayoutSelector: FC<Props> = memo(({ onConfigChange }) => {
       </span>
       <span title='Buy Order'>
         <RectangleVertical
-          className={`${styles.asks} ${styles.icon} ${selectedLayout === 'asks' ? styles.selected : ''}`}
-          onClick={() => handleSelectLayout('asks')}
+          className={`${styles.bids} ${styles.icon} ${selectedLayout === 'bids' ? styles.selected : ''}`}
+          onClick={() => handleSelectLayout('bids')}
         />
       </span>
       <span title='Sell Order'>
         <RectangleVertical
-          className={`${styles.bids} ${styles.icon} ${selectedLayout === 'bids' ? styles.selected : ''}`}
-          onClick={() => handleSelectLayout('bids')}
+          className={`${styles.asks} ${styles.icon} ${selectedLayout === 'asks' ? styles.selected : ''}`}
+          onClick={() => handleSelectLayout('asks')}
         />
       </span>
     </div>
