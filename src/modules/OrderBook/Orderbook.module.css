@@ -40,30 +40,30 @@
 
           &:hover {
             font-weight: bold;
-            .hoverHighlightContainer {
+            .hoverHighlight {
               border-bottom: 1px dashed var(--color-line);
               background-color: color-mix(in oklab, var(--color-input) 50%, transparent);
             }
           }
           &:has(~ .row:hover) {
-            .hoverHighlightContainer {
+            .hoverHighlight {
               background-color: color-mix(in oklab, var(--color-input) 50%, transparent);
             }
           }
 
-          .depthBarContainer,
-          .hoverHighlightContainer {
+          .depthBar,
+          .hoverHighlight {
             position: absolute;
             top: 0;
             bottom: 0;
             right: 0;
             pointer-events: none;
           }
-          .hoverHighlightContainer {
+          .hoverHighlight {
             left: 0;
             z-index: 0;
           }
-          .depthBarContainer {
+          .depthBar {
             z-index: 1;
           }
           .contentContainer {
@@ -87,7 +87,7 @@
           flex-direction: column-reverse;
           .row {
             &:hover {
-              .hoverHighlightContainer {
+              .hoverHighlight {
                 border-top: 1px dashed var(--color-line);
                 border-bottom: none;
               }
@@ -98,7 +98,7 @@
             .price {
               color: var(--text-sell);
             }
-            .depthBarContainer {
+            .depthBar {
               background-color: color-mix(in oklab, var(--text-sell) 20%, transparent);
             }
           }

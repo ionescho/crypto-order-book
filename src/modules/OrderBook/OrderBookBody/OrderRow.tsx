@@ -44,9 +44,9 @@ export const OrderRow: FC<Props> = memo(({ animations, price, quantity, total, p
 
   return (
     <div className={`${styles.row} ${flash && animations ? styles.flash : ''}`}>
-      <div className={styles.hoverHighlightContainer} />
+      <div className={styles.hoverHighlight} />
       <div
-        className={styles.depthBarContainer}
+        className={styles.depthBar}
         style={{
           width: `${percentage}%`,
         }}
