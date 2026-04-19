@@ -27,9 +27,12 @@
         color: var(--text-secondary);
       }
       .sectionBody {
+        --row-height: 20px;
+        height: calc(var(--row-height) * 20);
         flex-direction: column;
 
         .row {
+          height: var(--row-height);
           font-size: 12px;
           line-height: 20px;
           position: relative;

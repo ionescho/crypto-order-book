@@ -4,7 +4,7 @@ import styles from '../OrderBook.module.css';
 type Props = {
   animations: boolean;
   price: string;
-  quantity: number;
+  quantity: string;
   total: string;
   percentage: number;
 };

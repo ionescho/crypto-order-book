@@ -6,7 +6,7 @@ import { EXCHANGE_LABELS } from '../constants';
 
 type Props = {
   animations: boolean;
-  list?: { price: string; quantity: number; total: string; percentage: number }[];
+  list?: { price: string; quantity: string; total: string; percentage: number }[];
   variant: 'asks' | 'bids';
   exchange?: Exchange;
 };
