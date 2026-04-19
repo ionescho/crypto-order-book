@@ -1,11 +1,12 @@
 import { useCallback, useMemo, useState, type FC } from 'react';
-import { useWebsocket, type OrderBookResponse } from '../../providers/WebSocket/WebSocketContext';
+import { useWebsocket } from '../../websocket/WebSocketContext';
 import { OrderBookHeaderAndControls } from './OrderBookHeader/OrderBookHeaderAndControls';
 import { OrderBookSection } from './OrderBookBody/OrderBookSection';
 import { OrderBookRatio } from './OrderBookBody/OrderBookRatio';
 import styles from './Orderbook.module.css';
 import { INITIAL_CONFIG } from './constants';
-import type { OrderBookConfig } from './types';
+import { ROUTES } from '../../websocket/constants';
+import type { OrderBookConfig, OrderBookResponse } from './types';
 
 const parseSection: (
   section: [string, string][],
@@ -72,8 +73,6 @@ const parseOrderBook = (orderBook: OrderBookResponse, config: Partial<OrderBookC
 };
 
 export const OrderBook: FC = () => {
-  const { isConnected, fetchedFirstMessage, orderBook } = useWebsocket();
-
   const [config, setConfig] = useState<OrderBookConfig>(INITIAL_CONFIG);
   const handleConfigChange = useCallback((key: string, value: boolean | number | string) => {
     setConfig(prev => ({
@@ -81,10 +80,16 @@ export const OrderBook: FC = () => {
       [key]: value,
     }));
   }, []);
+  const { animations, showBuySellRatio, layout, exchange, ...dataConfig } = config;
 
-  const { animations, showBuySellRatio, layout, ...dataConfig } = config;
+  const {
+    isConnected,
+    fetchedFirstMessage,
+    message: orderBook,
+  } = useWebsocket(`${ROUTES.partialBookDepthStreamBaseUrl}${exchange}@depth20@1000ms`);
+
   const parsedOrderBook = useMemo(() => {
-    return orderBook ? parseOrderBook(orderBook, dataConfig) : null;
+    return orderBook ? parseOrderBook(orderBook as OrderBookResponse, dataConfig) : null;
   }, [orderBook, dataConfig]);
 
   const showAsks = layout === 'both' || layout === 'asks';
@@ -95,7 +100,7 @@ export const OrderBook: FC = () => {
       <div className={`${styles.orderBook} ${isConnected && fetchedFirstMessage && parsedOrderBook ? '' : 'hide'}`}>
         <OrderBookHeaderAndControls onConfigChange={handleConfigChange} />
         <div className={`${styles.orderBookBody} d-flex flex-column align-items-stretch`}>
-          {showAsks && <OrderBookSection list={parsedOrderBook?.asks} animations={animations} variant='asks' />}
+          {showAsks && <OrderBookSection exchange={exchange} list={parsedOrderBook?.asks} animations={animations} variant='asks' />}
           {showBids && <OrderBookSection list={parsedOrderBook?.bids} animations={animations} variant='bids' />}
           <div style={{ visibility: showBuySellRatio ? 'visible' : 'hidden' }}>
             <OrderBookRatio asksTotal={parsedOrderBook?.asksTotal} bidsTotal={parsedOrderBook?.bidsTotal} />

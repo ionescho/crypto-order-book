@@ -1,5 +1,7 @@
 export type OrderBookLayout = 'both' | 'asks' | 'bids';
 
+export type Exchange = 'btcusdt' | 'ethusdt' | 'bnbusdt';
+
 export type OrderBookConfig = {
   displaySumAvg: boolean;
   showBuySellRatio: boolean;
@@ -8,4 +10,12 @@ export type OrderBookConfig = {
   animations: boolean;
   decimals: number;
   layout: OrderBookLayout;
+  exchange: Exchange;
+};
+
+export type OrderTuple = [string, string];
+export type OrderBookResponse = {
+  asks: OrderTuple[]; // Array of [price, quantity] tuples
+  bids: OrderTuple[]; // Array of [price, quantity] tuples
+  lastUpdateId: number;
 };

@@ -1,0 +1,43 @@
+.configMenuButton {
+  font-size: 12px;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--text-tertiary);
+
+  span {
+    color: var(--text-primary);
+  }
+  &:hover,
+  &:hover svg {
+    color: var(--text-primary);
+    fill: var(--text-primary);
+  }
+  svg {
+    transform: rotate(180deg);
+    fill: var(--text-tertiary);
+  }
+}
+.configMenu {
+  padding-top: 10px;
+
+  .menuSubtitle {
+    font-size: 12px;
+    padding: 3px 10px 0;
+    color: var(--text-tertiary);
+  }
+  .menuItem {
+    font-size: 14px;
+    padding: 8px 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--color-input);
+    }
+  }
+  .divider {
+    width: calc(100% - 20px);
+    height: 1px;
+    margin-left: 10px;
+    background-color: var(--text-disabled);
+  }
+}

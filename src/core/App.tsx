@@ -1,5 +1,5 @@
 import './App.css';
-import { WebsocketProvider } from '../providers/WebSocket/WebSocketProvider';
+import { WebsocketProvider } from '../websocket/WebSocketProvider';
 import { OrderBook } from '../modules/OrderBook/OrderBook';
 
 function App() {

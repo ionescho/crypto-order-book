@@ -1,9 +1,9 @@
 import { memo, useState, type FC } from 'react';
 import { Triangle } from 'lucide-react';
-import { MenuPopover } from '../../../toolkit/MenuPopover/MenuPopover';
-import styles from '../Orderbook.module.css';
-import type { OrderBookConfig } from '../types';
-import { CONFIG_DECIMALS_OPTIONS, INITIAL_CONFIG } from '../constants';
+import { MenuPopover } from '../../../../toolkit/MenuPopover/MenuPopover';
+import styles from './ConfigMenu.module.css';
+import type { OrderBookConfig } from '../../types';
+import { CONFIG_DECIMALS_OPTIONS, INITIAL_CONFIG } from '../../constants';
 
 type Props = {
   onConfigChange: (key: keyof OrderBookConfig, value: boolean | number | string) => void;
@@ -19,9 +19,9 @@ export const DecimalsMenuPopover: FC<Props> = memo(({ onConfigChange }) => {
   return (
     <MenuPopover
       control={({ triggerOpen }) => (
-        <div className={`${styles.decimalsMenuButton} d-flex align-items-center`} onClick={triggerOpen}>
-          {selectedDecimal}
-          <Triangle width={6} className={styles.decimalsMenuButton} />
+        <div className={`${styles.configMenuButton} d-flex align-items-center`} onClick={triggerOpen}>
+          <span>{selectedDecimal}</span>
+          <Triangle width={6} />
         </div>
       )}
     >
