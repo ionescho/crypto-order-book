@@ -3,20 +3,19 @@ import { createContext, useContext, useEffect, type Dispatch, type SetStateActio
 export const WebsocketContext = createContext<{
   isConnected: boolean;
   fetchedFirstMessage: boolean;
+  hasError: boolean;
   message: unknown | null;
   setWebsocketUrl: Dispatch<SetStateAction<string | null | undefined>>;
 }>({
   isConnected: false,
   fetchedFirstMessage: false,
+  hasError: false,
   message: null,
   setWebsocketUrl: () => {},
 });
 
 export const useWebsocket = (websocketUrl?: string) => {
   const context = useContext(WebsocketContext);
-  if (!context) {
-    throw new Error('useWebsocket must be used within a WebsocketProvider');
-  }
 
   const { setWebsocketUrl, ...wsProps } = context;
 

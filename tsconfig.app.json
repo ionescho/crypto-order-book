@@ -19,7 +19,15 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@assets/*": ["./src/assets/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@toolkit/*": ["./src/toolkit/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@websocket/*": ["./src/websocket/*"],
+      "@core/*": ["./src/core/*"]
+    }
   },
   "include": ["src"]
 }

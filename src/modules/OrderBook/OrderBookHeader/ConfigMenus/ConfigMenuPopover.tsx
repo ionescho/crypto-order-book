@@ -1,12 +1,12 @@
 import { memo, type FC } from 'react';
 import { Ellipsis } from 'lucide-react';
-import { MenuPopover } from '../../../../toolkit/MenuPopover/MenuPopover';
-import styles from './ConfigMenu.module.css';
+import { Radio } from '@toolkit/Radio/Radio';
+import { Toggle } from '@toolkit/Toggle/Toggle';
+import { Checkbox } from '@toolkit/Checkbox/Checkbox';
+import { MenuPopover } from '@toolkit/MenuPopover/MenuPopover';
 import type { OrderBookConfig } from '../../types';
-import { Checkbox } from '../../../../toolkit/Checkbox/Checkbox';
-import { Radio } from '../../../../toolkit/Radio/Radio';
 import { INITIAL_CONFIG } from '../../constants';
-import { Toggle } from '../../../../toolkit/Toggle/Toggle';
+import styles from './ConfigMenu.module.css';
 
 type Props = {
   onConfigChange: (key: keyof OrderBookConfig, value: boolean | number | string) => void;

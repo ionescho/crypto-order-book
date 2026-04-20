@@ -1,14 +1,14 @@
 import { useCallback, useState, type FC } from 'react';
-import { useWebsocket } from '../../websocket/WebSocketContext';
+import { useWebsocket } from '@websocket/WebSocketContext';
 import { OrderBookHeaderAndControls } from './OrderBookHeader/OrderBookHeaderAndControls';
 import { OrderBookSection } from './OrderBookBody/OrderBookSection';
 import { OrderBookRatio } from './OrderBookBody/OrderBookRatio';
 import styles from './OrderBook.module.css';
 import { DUMMY_ORDER_BOOK_DATA, INITIAL_CONFIG } from './constants';
-import { ROUTES } from '../../websocket/constants';
+import { ROUTES } from '@websocket/constants';
 import type { OrderBookConfig, OrderBookResponse } from './types';
 import { useOrderBookParser } from './useOrderBookParser';
-import { Loader } from 'lucide-react';
+import { OrderBookLoader } from './OrderBookLoader';
 
 export const OrderBook: FC = () => {
   const [config, setConfig] = useState<OrderBookConfig>(INITIAL_CONFIG);
@@ -19,18 +19,19 @@ export const OrderBook: FC = () => {
     }));
   }, []);
 
-  const { animations, showBuySellRatio, layout, exchange, ...dataConfig } = config;
+  const { animations, showBuySellRatio, displaySumAvg, layout, exchange, ...dataConfig } = config;
 
   const {
     isConnected,
     fetchedFirstMessage,
+    hasError,
     message: orderBook,
   } = useWebsocket(`${ROUTES.partialBookDepthStreamBaseUrl}${exchange}@depth20@1000ms`);
 
   let parsedOrderBook = useOrderBookParser(orderBook as OrderBookResponse, dataConfig);
 
   // console.log(parsedOrderBook);
-  const isWaiting = !isConnected || !fetchedFirstMessage || !parsedOrderBook;
+  const isWaiting = !isConnected || !fetchedFirstMessage || !parsedOrderBook || hasError;
   if (isWaiting) {
     parsedOrderBook = DUMMY_ORDER_BOOK_DATA;
   }
@@ -43,27 +44,29 @@ export const OrderBook: FC = () => {
       <div className={`${styles.orderBook}`}>
         <OrderBookHeaderAndControls onConfigChange={handleConfigChange} />
         <div className={`${styles.orderBookBody} d-flex flex-column align-items-stretch`}>
-          {showAsks && <OrderBookSection exchange={exchange} list={parsedOrderBook?.asks} animations={animations} variant='asks' />}
-          {showBids && <OrderBookSection list={parsedOrderBook?.bids} animations={animations} variant='bids' />}
+          {showAsks && (
+            <OrderBookSection
+              exchange={exchange}
+              list={parsedOrderBook?.asks}
+              animations={animations}
+              displaySumAvg={displaySumAvg}
+              variant='asks'
+            />
+          )}
+          {showBids && (
+            <OrderBookSection list={parsedOrderBook?.bids} animations={animations} displaySumAvg={displaySumAvg} variant='bids' />
+          )}
           <div style={{ visibility: showBuySellRatio ? 'visible' : 'hidden' }}>
             <OrderBookRatio asksTotal={parsedOrderBook?.asksTotal} bidsTotal={parsedOrderBook?.bidsTotal} />
           </div>
         </div>
-        <div className={`d-flex align-items-center justify-center ${styles.waitingOverlay} ${isWaiting ? styles.show : ''}`}>
-          {isConnected && fetchedFirstMessage && !parsedOrderBook && <div>No data available</div>}
-          {!isConnected && (
-            <div className='d-flex align-items-center'>
-              <Loader />
-              &nbsp;&nbsp;&nbsp; Connecting...
-            </div>
-          )}
-          {isConnected && !fetchedFirstMessage && (
-            <div className='d-flex align-items-center'>
-              <Loader />
-              &nbsp;&nbsp;&nbsp; Waiting for data...
-            </div>
-          )}
-        </div>
+        <OrderBookLoader
+          show={isWaiting}
+          isConnected={isConnected}
+          fetchedFirstMessage={fetchedFirstMessage}
+          hasOrderBook={!!orderBook}
+          hasError={hasError}
+        />
       </div>
     </>
   );

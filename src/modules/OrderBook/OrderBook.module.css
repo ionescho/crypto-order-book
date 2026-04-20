@@ -3,7 +3,7 @@
   padding: 20px;
   border-radius: 8px;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 
   .orderBookHeader {
     h6 {
@@ -30,12 +30,13 @@
     backdrop-filter: blur(10px);
     z-index: 100;
     transition: top ease-in-out 0.2s;
+    border-radius: 0 0 8px 8px;
 
     &.show {
       top: 52px;
     }
 
-    svg {
+    svg.loader {
       stroke: var(--bg-btn);
       animation: spin 4s linear infinite;
     }

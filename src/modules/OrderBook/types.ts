@@ -19,3 +19,12 @@ export type OrderBookResponse = {
   bids: OrderTuple[]; // Array of [price, quantity] tuples
   lastUpdateId: number;
 };
+
+export type ParsedGroupedOrder = {
+  price: string;
+  quantity: string;
+  total: string;
+  sumCurrency: number;
+  sumCrypto: number;
+  percentage: number;
+};

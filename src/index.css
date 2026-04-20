@@ -21,10 +21,6 @@
   color-scheme: light dark;
   color: var(--text-primary);
   background: var(--bg);
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -87,62 +83,14 @@
   box-sizing: border-box;
 }
 
-/* @font-face {
-  font-family: 'BinanceNova';
-  font-display: swap;
-  src:
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Light.woff2') format('woff2'),
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Light.otf') format('opentype');
-  font-weight: 200 300;
-}
-@font-face {
-  font-family: 'BinanceNova';
-  font-display: swap;
-  src:
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Regular.woff2') format('woff2'),
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Regular.otf') format('opentype');
-  font-weight: 400;
-}
-@font-face {
-  font-family: 'BinanceNova';
-  font-display: swap;
-  src:
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Medium.woff2') format('woff2'),
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Medium.otf') format('opentype');
-  font-weight: 500;
-}
-@font-face {
-  font-family: 'BinanceNova';
-  font-display: swap;
-  src:
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-SemiBold.woff2') format('woff2'),
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-SemiBold.otf') format('opentype');
-  font-weight: 600;
-}
-@font-face {
-  font-family: 'BinanceNova';
-  font-display: swap;
-  src:
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Bold.woff2') format('woff2'),
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Bold.otf') format('opentype');
-  font-weight: 700 800;
-}
-@font-face {
-  font-family: 'BinanceNova';
-  font-display: swap;
-  src:
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Black.woff2') format('woff2'),
-    url('https://bin.bnbstatic.com/static/fonts/bn/BinanceNova-Black.otf') format('opentype');
-  font-weight: 900;
-} */
-
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
-  height: 100vh;
   width: 100%;
+  min-height: 100vh;
+  overflow: auto;
   font-family: var(--sans);
 }

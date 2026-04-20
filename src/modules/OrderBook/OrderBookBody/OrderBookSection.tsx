@@ -1,17 +1,18 @@
 import type { FC } from 'react';
 import { OrderRow } from './OrderRow';
 import styles from './OrderbookBody.module.css';
-import type { Exchange } from '../types';
+import type { Exchange, ParsedGroupedOrder } from '../types';
 import { EXCHANGE_LABELS } from '../constants';
 
 type Props = {
   animations: boolean;
-  list?: { price: string; quantity: string; total: string; percentage: number }[];
+  displaySumAvg: boolean;
+  list?: ParsedGroupedOrder[];
   variant: 'asks' | 'bids';
   exchange?: Exchange;
 };
 
-export const OrderBookSection: FC<Props> = ({ animations, list = [], variant, exchange }) => {
+export const OrderBookSection: FC<Props> = ({ animations, displaySumAvg, list = [], variant, exchange }) => {
   const [exchangeCrypto, exchangeCurrency] = exchange ? EXCHANGE_LABELS[exchange]?.split('/') || [] : [];
 
   return (
@@ -22,8 +23,18 @@ export const OrderBookSection: FC<Props> = ({ animations, list = [], variant, ex
         <div className={styles.total}>Total</div>
       </div>
       <div className={`${styles.sectionBody} d-flex`}>
-        {list.map(({ price, quantity, total, percentage }) => (
-          <OrderRow animations={animations} key={price} price={price} quantity={quantity} total={total} percentage={percentage} />
+        {list.map(({ price, quantity, total, sumCurrency, sumCrypto, percentage }) => (
+          <OrderRow
+            animations={animations}
+            displaySumAvg={displaySumAvg}
+            key={price}
+            price={price}
+            quantity={quantity}
+            total={total}
+            sumCurrency={sumCurrency}
+            sumCrypto={sumCrypto}
+            percentage={percentage}
+          />
         ))}
       </div>
     </div>

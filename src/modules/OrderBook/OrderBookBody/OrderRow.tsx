@@ -1,13 +1,12 @@
 import { memo, useEffect, useRef, useState, type FC } from 'react';
 import styles from './OrderbookBody.module.css';
+import type { ParsedGroupedOrder } from '../types';
+import { formatNumber } from '../../../utils/utils';
 
 type Props = {
   animations: boolean;
-  price: string;
-  quantity: string;
-  total: string;
-  percentage: number;
-};
+  displaySumAvg: boolean;
+} & ParsedGroupedOrder;
 
 // let componentInstances = 0;
 // let totalRenderCycles = 0;
@@ -20,7 +19,7 @@ type Props = {
 //     console.log(`=================================================`);
 // }, 1000);
 
-export const OrderRow: FC<Props> = memo(({ animations, price, quantity, total, percentage }) => {
+export const OrderRow: FC<Props> = memo(({ animations, displaySumAvg, price, quantity, total, sumCurrency, sumCrypto, percentage }) => {
   // totalRenderCycles++;
   const [flash, setFlash] = useState(false);
   const isFirstRender = useRef(true);
@@ -40,8 +39,14 @@ export const OrderRow: FC<Props> = memo(({ animations, price, quantity, total, p
     return () => clearTimeout(timeoutId);
   }, [quantity]);
 
+  const [showTooltip, setShowTooltip] = useState(false);
+
   return (
-    <div className={`${styles.row} ${animations && flash ? styles.flash : ''}`}>
+    <div
+      onMouseOver={() => displaySumAvg && setShowTooltip(true)}
+      onMouseLeave={() => displaySumAvg && setShowTooltip(false)}
+      className={`${styles.row} ${animations && flash ? styles.flash : ''}`}
+    >
       <div className={styles.hoverHighlight} />
       <div
         className={styles.depthBar}
@@ -54,6 +59,21 @@ export const OrderRow: FC<Props> = memo(({ animations, price, quantity, total, p
         <div className={styles.amount}>{quantity}</div>
         <div className={styles.total}>{total}</div>
       </div>
+      {showTooltip && (
+        <div className={styles.tooltipContainer}>
+          <div className='d-flex flex-column align-items-stretch'>
+            <div className='d-flex justify-space-between'>
+              <div>Avg Price:</div> <div>≈{formatNumber(sumCrypto ? sumCurrency / sumCrypto : 0, 5)}</div>
+            </div>
+            <div className='d-flex justify-space-between'>
+              <div>Sum Crypto:</div> <div>{formatNumber(sumCrypto, 5)}</div>
+            </div>
+            <div className='d-flex justify-space-between'>
+              <div>Sum Currency:</div> <div>{formatNumber(sumCurrency, 5)}</div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 });
