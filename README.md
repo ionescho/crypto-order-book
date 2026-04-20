@@ -32,6 +32,8 @@ The application consumes Binance's public WebSocket streams and renders
   - Amount depth
   - Cumulative depth
 - Buy / Sell ratio indicator (toggle-able)
+- Hover avg/sum
+- Rounding
 - Row highlighting and update animations (toggle-able)
 - Custom UI controls (checkbox, radio, toggle, popover)
 
@@ -74,9 +76,9 @@ The app will run on:
 
 - Precision values are powers of 10
 - Order book depth is limited to a maximum of 20 visible rows
-- The application so far supports price groupings of maximum 2 decimal points
-- No dynamic precision implemented yet ( ex DogeCoin would also have to support 3, 4 and 5 decimal points )
-- When grouping with a precision of less that 2 decimals, less than 20 rows will be visible and it will not fill up the available space. This is due to the fact that stream we subscribe to supports a maximum depth level of 20. Binance uses a diff depth stream + snapshot url to maintain large lists even with less precision
+- This demo only offers tick sizes with up to two fractional digits in the config (0.01-style)
+- No dynamic precision implemented yet ( e.g. DOGE would also have to support 3, 4 and 5 decimal points )
+- When grouping with a precision of less than 2 decimals, less than 20 rows will be visible and it will not fill up the available space. This is due to the fact that the stream we subscribe to supports a maximum depth level of 20 that we can build upon. Binance uses a diff depth stream + snapshot url to maintain large lists even with less precision
 
 ---
 
@@ -89,10 +91,9 @@ The app will run on:
 
 ---
 
-### 2. Performance Optimization
+### 2. Performance Considerations
 
-The order book updates multiple times per second, so performance was a
-key concern:
+The order book updates every second, or potentially every 100ms (frequency can be changed in the websocket url in OrderBook.tsx):
 
 - Components are memoized where appropriate (Individual rows indexed by price + the header containing the controls)
 - UI controls are kept outside frequently updating components
@@ -112,19 +113,18 @@ grouping prices:
 
 To ensure stable and deterministic grouping:
 
-- Implemented a fixed-point approach using string manipulation (in the useOrderBookParser.tsx)
+- Implemented a fixed-point approach using string manipulation (in the useOrderBookParser.ts)
 - Avoided floating point operations for decimal precisions
 - Applied integer-like logic for grouping calculations
 
-This enables correct grouping even for small precisions (e.g. 0.01,
-0.001).
+This enables correct grouping even for small precisions (e.g. 0.01).
 
 ---
 
 ### 4. Price Grouping Logic
 
 - Supports both floor (bids) and ceil (asks) grouping strategies
-- Handles powers of 10
+- Grouping supports the configured tick sizes (10, 1, 0.1 and 0.01), with string-based bucketing for sub-unit ticks to avoid float errors.
 - Ensures no collapsing or misalignment of price levels
 
 ---
@@ -135,7 +135,6 @@ This enables correct grouping even for small precisions (e.g. 0.01,
 - Supports:
   - raw amount
   - cumulative totals
-- Implemented using lightweight DOM updates to maintain performance
 
 ---
 
