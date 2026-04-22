@@ -1,16 +1,16 @@
 :root {
-  --bg: #fff;
-  --bg-basic: #b3c0e8;
-  --bg-card: #9dacc8;
+  --bg: #0c0e11;
+  --bg-basic: #181a20;
+  --bg-card: #202630;
   --bg-btn: #fcd535;
-  --text-primary: #161617;
-  --text-secondary: #585d64;
+  --text-primary: #eaecef;
+  --text-secondary: #929aa5;
   --text-tertiary: #707a8a;
-  --text-disabled: #979fad;
+  --text-disabled: #4f5867;
+  --color-input: #29313d;
   --text-sell: #f6465d;
   --text-buy: #2ebd85;
   --color-line: #333b47;
-  --color-input: #8aa8d4;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -23,17 +23,17 @@
   background: var(--bg);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: light) {
   :root {
-    --bg: #0c0e11;
-    --bg-basic: #181a20;
-    --bg-card: #202630;
-    --text-primary: #eaecef;
-    --text-secondary: #929aa5;
-    --text-disabled: #4f5867;
-    --color-input: #29313d;
+    --bg: #fff;
+    --bg-basic: #b3c0e8;
+    --bg-card: #9dacc8;
+    --text-primary: #161617;
+    --text-secondary: #585d64;
+    --text-disabled: #979fad;
+    --color-input: #8aa8d4;
   }
-}
+} */
 
 .d-flex {
   display: flex;
