@@ -1,4 +1,4 @@
-import { memo, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import { Triangle } from 'lucide-react';
 import { MenuPopover } from '../../../../toolkit/MenuPopover/MenuPopover';
 import styles from './ConfigMenu.module.css';
@@ -9,7 +9,7 @@ type Props = {
   onConfigChange: (key: keyof OrderBookConfig, value: boolean | number | string) => void;
 };
 
-export const DecimalsMenuPopover: FC<Props> = memo(({ onConfigChange }) => {
+export const DecimalsMenuPopover: FC<Props> = ({ onConfigChange }) => {
   const [selectedDecimal, setSelectedDecimal] = useState<number>(INITIAL_CONFIG.decimals);
   const handleSelectDecimal = (value: number) => {
     setSelectedDecimal(value);
@@ -39,4 +39,4 @@ export const DecimalsMenuPopover: FC<Props> = memo(({ onConfigChange }) => {
       </div>
     </MenuPopover>
   );
-});
+};

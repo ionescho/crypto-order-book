@@ -1,4 +1,4 @@
-import { memo, type FC } from 'react';
+import { type FC } from 'react';
 import { Ellipsis } from 'lucide-react';
 import { Radio } from '@toolkit/Radio/Radio';
 import { Toggle } from '@toolkit/Toggle/Toggle';
@@ -12,7 +12,7 @@ type Props = {
   onConfigChange: (key: keyof OrderBookConfig, value: boolean | number | string) => void;
 };
 
-export const ConfigMenuPopover: FC<Props> = memo(({ onConfigChange }) => {
+export const ConfigMenuPopover: FC<Props> = ({ onConfigChange }) => {
   return (
     <MenuPopover control={({ triggerOpen }) => <Ellipsis className={styles.configMenuButton} onClick={triggerOpen} />}>
       <div className={`${styles.configMenu} d-flex flex-column align-items-stretch`}>
@@ -68,4 +68,4 @@ export const ConfigMenuPopover: FC<Props> = memo(({ onConfigChange }) => {
       </div>
     </MenuPopover>
   );
-});
+};

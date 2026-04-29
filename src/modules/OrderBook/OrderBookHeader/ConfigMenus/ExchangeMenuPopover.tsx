@@ -9,7 +9,7 @@ type Props = {
   onConfigChange: (key: keyof OrderBookConfig, value: boolean | number | string) => void;
 };
 
-export const ExchangeMenuPopover: FC<Props> = memo(({ onConfigChange }) => {
+export const ExchangeMenuPopover: FC<Props> = ({ onConfigChange }) => {
   const [selectedExchange, setSelectedExchange] = useState<Exchange>(INITIAL_CONFIG.exchange);
   const handleSelectExchange = (value: Exchange) => {
     setSelectedExchange(value);
@@ -40,4 +40,4 @@ export const ExchangeMenuPopover: FC<Props> = memo(({ onConfigChange }) => {
       </div>
     </MenuPopover>
   );
-});
+};

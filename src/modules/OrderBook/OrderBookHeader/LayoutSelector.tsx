@@ -1,4 +1,4 @@
-import { memo, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import type { OrderBookConfig, OrderBookLayout } from '../types';
 import { BetweenHorizonalStart, RectangleVertical } from 'lucide-react';
 import styles from './LayoutSelector.module.css';
@@ -8,7 +8,7 @@ type Props = {
   onConfigChange: (key: keyof OrderBookConfig, value: boolean | number | string) => void;
 };
 
-export const LayoutSelector: FC<Props> = memo(({ onConfigChange }) => {
+export const LayoutSelector: FC<Props> = ({ onConfigChange }) => {
   const [selectedLayout, setSelectedLayout] = useState<OrderBookLayout>(INITIAL_CONFIG.layout);
   const handleSelectLayout = (value: OrderBookLayout) => {
     setSelectedLayout(value);
@@ -37,4 +37,4 @@ export const LayoutSelector: FC<Props> = memo(({ onConfigChange }) => {
       </span>
     </div>
   );
-});
+};
