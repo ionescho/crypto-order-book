@@ -1,4 +1,4 @@
-import { memo, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import { Triangle } from 'lucide-react';
 import { MenuPopover } from '../../../../toolkit/MenuPopover/MenuPopover';
 import styles from './ConfigMenu.module.css';
